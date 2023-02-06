@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "813563028456",
+    "project_id": "cutie-c0d8b",
+    "storage_bucket": "cutie-c0d8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813563028456:android:83d7c0e5c3db501f96fa5d",
+        "android_client_info": {
+          "package_name": "com.example.cutie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813563028456-ahbge9gqcapvm31vnq59dh70pd1pqigi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4P3ER8FWhSyCizVO6Cd7flttHTAXsJH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813563028456-ahbge9gqcapvm31vnq59dh70pd1pqigi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
