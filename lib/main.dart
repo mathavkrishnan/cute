@@ -3,14 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'Signup.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future<void> main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  Stripe.publishableKey = "pk_test_51MX2u2SBGTsUxosHC6fCIwNgj620iPIJ4Y3KEqBBlcjHYXYL9iB0M8nyEz8odcUVFIdd5F4u9KsEKfMSq2K8e10a00rWyaCXxf";
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());

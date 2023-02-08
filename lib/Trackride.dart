@@ -66,10 +66,6 @@ class _TrackrideState extends State<Trackride> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Text("Please wait! Once your ride is conformed you will get notified in message or in notification and ride will be listed here",style: TextStyle(fontSize: 20),),
-            ),
             Column(
               children: [
                 Padding(

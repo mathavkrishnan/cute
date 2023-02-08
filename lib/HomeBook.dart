@@ -20,9 +20,7 @@ class HomeBook extends StatefulWidget {
 
 class _HomeBookState extends State<HomeBook> {
   @override
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String? selectedValue2;
-  bool showspinner = false;
   Image? im;
   final TextEditingController textEditingController1 = TextEditingController();
   final TextEditingController textEditingController2 = TextEditingController();
@@ -35,12 +33,6 @@ class _HomeBookState extends State<HomeBook> {
   String? selectedValue1;
   void initState(){
     getlocation();
-    setState((){
-      showspinner = true;
-    });
-    setState((){
-      showspinner = false;
-    });
     super.initState();
   }
   Position? _crpos;
@@ -122,127 +114,69 @@ class _HomeBookState extends State<HomeBook> {
           ],
         ),
       ),
-      body: ModalProgressHUD(
-        inAsyncCall: showspinner,
-        child: SafeArea(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: Container(
-                  width: MediaQuery. of(context). size. width,
-                  height: MediaQuery. of(context). size. height/7,
-                  decoration: BoxDecoration(
-                    color: Colors.black
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all(Radius.circular(20))),
-                              child: Center(child: Text("A")),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: Container(
+                width: MediaQuery. of(context). size. width,
+                height: MediaQuery. of(context). size. height/7,
+                decoration: BoxDecoration(
+                  color: Colors.black
+                ),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            height: 20,
+                            width: 20,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.all(Radius.circular(20))),
+                            child: Center(child: Text("A")),
+                          ),
+                        ),
+                        Text("Drop Off",style: TextStyle(color: Colors.white),)
+                      ],
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 8,
+                          bottom: 4,
+                          right: 8,
+                          left: 8,
+                        ),
+                        child: TextFormField(
+                          controller: textEditingController2,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 8,
+                            ),
+                            hintText: 'Search for an item...',
+                            hintStyle: const TextStyle(fontSize: 12),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          Text("Drop Off",style: TextStyle(color: Colors.white),)
-                        ],
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white
-                        ),
-                        child: StreamBuilder<QuerySnapshot>(
-                            stream: _firestore.collection('places').snapshots(),
-                            builder: (context,snapshot) {
-                              final itemsr = snapshot.requireData.docs;
-                              final List<String> cities = [];
-                              List<LatLng> point = [];
-                              for(var i in itemsr){
-                                final String n = i.get('name');
-                                point.add(LatLng(i.get('location').latitude, i.get('location').longitude));
-                                cities.add(n);
-                              }
-                              return DropdownButtonHideUnderline(
-                                child: DropdownButton2(
-                                  isExpanded: true,
-                                  hint: Text(
-                                    'Select Item',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Theme.of(context).hintColor,
-                                    ),
-                                  ),
-                                  items: cities.map((item) => DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text(
-                                      item,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  )).toList(),
-                                  value: selectedValue2,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      selectedValue2 = value as String;
-                                      pnt = point[cities.indexOf(selectedValue2!)];
-                                    });
-                                  },
-                                  buttonHeight: 40,
-                                  buttonWidth: 200,
-                                  itemHeight: 40,
-                                  dropdownMaxHeight: 200,
-                                  searchController: textEditingController2,
-                                  searchInnerWidget: Padding(
-                                    padding: const EdgeInsets.only(
-                                      top: 8,
-                                      bottom: 4,
-                                      right: 8,
-                                      left: 8,
-                                    ),
-                                    child: TextFormField(
-                                      controller: textEditingController2,
-                                      decoration: InputDecoration(
-                                        isDense: true,
-                                        contentPadding: const EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                          vertical: 8,
-                                        ),
-                                        hintText: 'Search for an item...',
-                                        hintStyle: const TextStyle(fontSize: 12),
-                                        border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  searchMatchFn: (item, searchValue) {
-                                    return (item.value.toString().contains(searchValue));
-                                  },
-                                  //This to clear the search value when you close the menu
-                                  onMenuStateChange: (isOpen) {
-                                    if (!isOpen) {
-                                      textEditingController2.clear();
-                                    }
-                                  },
-                                ),
-                              );
-                            }
                         ),
                       ),
-                      //place map here
-                    ],
-                  ),
+                      ),
+                    //place map here
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -250,12 +184,6 @@ class _HomeBookState extends State<HomeBook> {
         child: Icon(Icons.arrow_forward_sharp),
         backgroundColor: Colors.black,
         onPressed: () {
-          Ridedetail.dest = selectedValue2;
-          Ridedetail.spos = pnt;
-          Ridedetail.dst = 5;
-          Ridedetail.source = _crpos;
-          print(selectedValue1);
-          print(pnt);
           Navigator.push(context, MaterialPageRoute(builder: (context)=>Ridedetail()));
         },
       ),

@@ -1,11 +1,9 @@
 import 'package:cutie/Ridedetail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'HomeBook.dart';
 import 'Otpverify.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:async';
-import 'package:geocoding/geocoding.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -127,7 +125,6 @@ class _SignupState extends State<Signup> {
                             textColor: Colors.white,
                             elevation: 8.0,
                             onPressed: ()async=>{
-                              Ridedetail.phno = phone,
                                 await FirebaseAuth.instance.verifyPhoneNumber(
                                 phoneNumber: '+91'+phone,
                                 verificationCompleted: (PhoneAuthCredential credential) {
